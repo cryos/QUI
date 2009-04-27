@@ -1,0 +1,258 @@
+-- Installing: /Library/Application Support/Avogadro/fragments
+-- Installing: /Library/Application Support/Avogadro/fragments/alcohols
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/alcohols/ethanol.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/alcohols/methanol.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/alcohols/propan-1-ol.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/alcohols/propan-2-ol.cml
+-- Installing: /Library/Application Support/Avogadro/fragments/aldehydes
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/aldehydes/acetaldehyde.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/aldehydes/formaldehyde.cml
+-- Installing: /Library/Application Support/Avogadro/fragments/alkanes
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/alkanes/2-methylpropane.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/alkanes/ethane.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/alkanes/methane.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/alkanes/propane.cml
+-- Installing: /Library/Application Support/Avogadro/fragments/alkenes
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/alkenes/but-1-ene.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/alkenes/ethene.cml
+-- Installing: /Library/Application Support/Avogadro/fragments/alkynes
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/alkynes/acetylene.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/alkynes/propyne.cml
+-- Installing: /Library/Application Support/Avogadro/fragments/amides
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amides/acetamide.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amides/ethyl_carbamate.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amides/N_N-dimethylacetamide.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amides/N_N-dimethylformamide.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amides/oxamide.cml
+-- Installing: /Library/Application Support/Avogadro/fragments/amines
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amines/ammonia.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amines/azepane.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amines/ethylamine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amines/methylamine.cml
+-- Installing: /Library/Application Support/Avogadro/fragments/amino_acids
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/D-alanine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/D-allo-threonine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/D-arginine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/D-asparagine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/D-aspartic_acid.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/D-cysteine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/D-glutamic_acid.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/D-glutamine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/D-histidine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/D-isoleucine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/D-leucine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/D-lysine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/D-methionine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/D-phenylalanine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/D-proline.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/D-serine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/D-threonine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/D-tryptophan.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/D-tyrosine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/D-valine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/glycine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/L-4-nitrophenylalanine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/L-alanine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/L-allo-isoleucine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/L-arginine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/L-asparagine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/L-aspartic_acid.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/L-cysteine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/L-glutamic_acid.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/L-glutamine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/L-histidine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/L-isoleucine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/L-leucine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/L-lysine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/L-methionine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/L-phenylalanine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/L-proline.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/L-serine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/L-threonine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/L-tryptophan.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/L-tyrosine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/amino_acids/L-valine.cml
+-- Installing: /Library/Application Support/Avogadro/fragments/aromatics
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/aromatics/1H-indene.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/aromatics/aniline.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/aromatics/anisole.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/aromatics/anthracene.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/aromatics/benzaldehyde.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/aromatics/benzene.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/aromatics/benzoic_acid.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/aromatics/benzoyl_chloride.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/aromatics/caffeine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/aromatics/naphthalene.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/aromatics/nitrobenzene.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/aromatics/phenol.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/aromatics/toluene.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/buckminsterfullerene.cml
+-- Installing: /Library/Application Support/Avogadro/fragments/carbamides
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carbamides/urea.cml
+-- Installing: /Library/Application Support/Avogadro/fragments/carbohydrates
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carbohydrates/d-allose.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carbohydrates/d-altrose.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carbohydrates/d-arabinose.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carbohydrates/d-erythrose.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carbohydrates/d-erythrulose.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carbohydrates/d-fructose.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carbohydrates/d-galactose.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carbohydrates/d-glucose.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carbohydrates/d-glyceraldehyde.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carbohydrates/d-gulose.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carbohydrates/d-idose.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carbohydrates/d-lyxose.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carbohydrates/d-mannose.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carbohydrates/d-psicose.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carbohydrates/d-ribose.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carbohydrates/d-ribulose.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carbohydrates/d-sorbose.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carbohydrates/d-tagatose.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carbohydrates/d-talose.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carbohydrates/d-threose.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carbohydrates/d-xylose.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carbohydrates/d-xylulose.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carbohydrates/dihydroxyacetone.cml
+-- Installing: /Library/Application Support/Avogadro/fragments/carboxylic_acids
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carboxylic_acids/2_2-dichloroacetic_acid.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carboxylic_acids/2_2_2-trichloroacetic_acid.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carboxylic_acids/2_2_2-trifluoroacetic_acid.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carboxylic_acids/acetic_acid.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carboxylic_acids/butanoic_acid.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carboxylic_acids/citric_acid.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carboxylic_acids/D-lactic_acid.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carboxylic_acids/D-malic_acid.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carboxylic_acids/D-tartaric_acid.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carboxylic_acids/formic_acid.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carboxylic_acids/isobutyric_acid.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carboxylic_acids/L-ascorbic_acid.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carboxylic_acids/L-lactic_acid.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carboxylic_acids/L-malic_acid.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carboxylic_acids/L-tartaric_acid.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carboxylic_acids/oxalic_acid.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/carboxylic_acids/propanoic_acid.cml
+-- Installing: /Library/Application Support/Avogadro/fragments/coordination
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/coordination/3-trigonal-planar.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/coordination/3-trigonal-pyramidal.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/coordination/4-planar.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/coordination/4-tetrahedral.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/coordination/5-square-pyramidal.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/coordination/5-trigonal-bipyramidal.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/coordination/6-octahedral.cml
+-- Installing: /Library/Application Support/Avogadro/fragments/cyclic alkanes
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/cyclic alkanes/adamantane.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/cyclic alkanes/cubane.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/cyclic alkanes/cyclobutane.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/cyclic alkanes/cycloheptane.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/cyclic alkanes/cyclohexane.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/cyclic alkanes/cyclopentane.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/cyclic alkanes/cyclopropane.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/cyclic alkanes/norbornane.cml
+-- Installing: /Library/Application Support/Avogadro/fragments/ethers
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/ethers/di-tert-butylether.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/ethers/dibutylether.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/ethers/diethylether.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/ethers/diisopropylether.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/ethers/dimethylether.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/ethers/dipropylether.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/ethers/ethylmethylether.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/ethers/tetrahydrofuran.cml
+-- Installing: /Library/Application Support/Avogadro/fragments/fatty acids
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/fatty acids/decanoic_acid.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/fatty acids/hexanoic_acid.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/fatty acids/lauric_acid.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/fatty acids/linoleic_acid.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/fatty acids/octanoic_acid.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/fatty acids/oleic_acid.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/fatty acids/palmitic_acid.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/fatty acids/stearic_acid.cml
+-- Installing: /Library/Application Support/Avogadro/fragments/heteroaromatics
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/heteroaromatics/1_2-oxazole.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/heteroaromatics/1_2-thiazole.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/heteroaromatics/1_3-oxazole.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/heteroaromatics/1_3-thiazole.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/heteroaromatics/1H-indole.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/heteroaromatics/1H-pyrazole.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/heteroaromatics/1H-pyrrole.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/heteroaromatics/benzofuran.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/heteroaromatics/benzothiophene.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/heteroaromatics/furan.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/heteroaromatics/pyridine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/heteroaromatics/thiophene.cml
+-- Installing: /Library/Application Support/Avogadro/fragments/ketones
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/ketones/acetone.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/ketones/butanone.cml
+-- Installing: /Library/Application Support/Avogadro/fragments/macrocycles
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/macrocycles/porphin.cml
+-- Installing: /Library/Application Support/Avogadro/fragments/nucleobases
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/nucleobases/adenine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/nucleobases/cytosine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/nucleobases/guanine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/nucleobases/thymine.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/nucleobases/uracil.cml
+-- Installing: /Library/Application Support/Avogadro/fragments/steroids
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/steroids/cholesterol.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/steroids/estradiol.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/steroids/testosterone.cml
+-- Installing: /Library/Application Support/Avogadro/fragments/sulfoxides
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/sulfoxides/dimethyl_sulfoxide.cml
+-- Installing: /Library/Application Support/Avogadro/fragments/thiols
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/thiols/ethanethiol.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/thiols/methanethiol.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/thiols/pentane-1-thiol.cml
+-- Up-to-date: /Library/Application Support/Avogadro/fragments/water.cml
+
+
+-- Up-to-date: /usr/local/include/avogadro/boost.h
+-- Up-to-date: /usr/local/include/avogadro/camera.h
+-- Up-to-date: /usr/local/include/avogadro/color.h
+-- Up-to-date: /usr/local/include/avogadro/colorbutton.h
+-- Up-to-date: /usr/local/include/avogadro/cylinder.h
+-- Up-to-date: /usr/local/include/avogadro/elementtranslate.h
+-- Up-to-date: /usr/local/include/avogadro/engine.h
+-- Up-to-date: /usr/local/include/avogadro/extension.h
+-- Up-to-date: /usr/local/include/avogadro/filetreeitem.h
+-- Up-to-date: /usr/local/include/avogadro/global.h
+-- Up-to-date: /usr/local/include/avogadro/glpainter.h
+-- Up-to-date: /usr/local/include/avogadro/glwidget.h
+-- Up-to-date: /usr/local/include/avogadro/idlist.h
+-- Up-to-date: /usr/local/include/avogadro/navigate.h
+-- Up-to-date: /usr/local/include/avogadro/painter.h
+-- Up-to-date: /usr/local/include/avogadro/painterdevice.h
+-- Up-to-date: /usr/local/include/avogadro/painterengine.h
+-- Up-to-date: /usr/local/include/avogadro/periodictableview.h
+-- Up-to-date: /usr/local/include/avogadro/plugin.h
+-- Up-to-date: /usr/local/include/avogadro/plugindialog.h
+-- Up-to-date: /usr/local/include/avogadro/pluginitemmodel.h
+-- Up-to-date: /usr/local/include/avogadro/pluginlistview.h
+-- Up-to-date: /usr/local/include/avogadro/pluginmanager.h
+-- Up-to-date: /usr/local/include/avogadro/povpainter.h
+-- Up-to-date: /usr/local/include/avogadro/primitive.h
+-- Up-to-date: /usr/local/include/avogadro/primitiveitemmodel.h
+-- Up-to-date: /usr/local/include/avogadro/primitivelist.h
+-- Up-to-date: /usr/local/include/avogadro/sphere.h
+-- Up-to-date: /usr/local/include/avogadro/textrenderer.h
+-- Up-to-date: /usr/local/include/avogadro/tool.h
+-- Up-to-date: /usr/local/include/avogadro/toolgroup.h
+-- Up-to-date: /usr/local/include/avogadro/undosequence.h
+
+
+
+
+-- Installing: /Library/Application Support/Avogadro/fragments
+
+-- Installing: /usr/local/lib/libavogadro.0.8.2.dylib
+-- Up-to-date: /usr/local/lib/libavogadro.0.dylib
+-- Up-to-date: /usr/local/lib/libavogadro.dylib
+
+-- Installing: /usr/local/lib/avogadro/
+-- Installing: /usr/local/share/libavogadro/
+-- Installing: /usr/local/share/avogadro/
+-- Installing: /Applications/avogadro.app
+
+
+        /usr/local/lib/libopenbabel.3.dylib (compatibility version 4.0.0, current version 4.0.0)
+
+        QtCore.framework/Versions/4/QtCore (compatibility version 4.4.0, current version 4.4.0)
+        QtGui.framework/Versions/4/QtGui (compatibility version 4.4.0, current version 4.4.0)
+        QtOpenGL.framework/Versions/4/QtOpenGL (compatibility version 4.4.0, current version 4.4.0)

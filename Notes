@@ -1,0 +1,83 @@
+*********
+* TO DO * 
+*********
+
+- cc real values
+- icon on Windoze
+- lj parameters
+
+x ability to read in output files
+x Warn on overwrite of existing output file
+x QMMM option need logic
+x charge logic associated with symmetry
+
+
+- warning if a parsed option/value pair is not recognised
+- consider $occupied
+
+   section read
+   - basis
+   - ecp
+   - li_parmeters
+
+
+
+- add arbitrary option real/string/integer
+
+
+NonMemberFunction
+memberFunction
+m_dataMember
+s_staticDataMember
+
+
+
+
+
+Avogadro on babel:
+
+cmake -DEIGEN_INCLUDE_DIR="/home/agilbert/development/eigen/" 
+      -DOPENBABEL2_INCLUDE_DIR="/home/agilbert/development/openbabel/include/openbabel-2.0" 
+      -DOPENBABEL2_LIBRARIES="home/agilbert/development/openbabel/lib/libopenbabel.so" ../
+
+Avogadro on Stowe:
+
+cmake -DEIGEN_INCLUDE_DIR=/Users/agilbert/Desktop/Avogadro/eigen
+      -DOPENBABEL2_LIBRARIES=/usr/local/lib/libopenbabel.3.dylib
+      -DOPENBABEL2_INCLUDE_DIR=/usr/local/include/openbabel-2.0 
+      //-DCMAKE_INSTALL_PEFIX=/Applications
+      //-DLIB_INSTALL_DIR=/usr/local/lib
+      ../
+
+This is the command used to generate the .pro file:
+qmake -makefile -spec macx-g++ -o Makefile 
+
+
+install_name_tool -change QtCore.framework/Versions/4/QtCore @executable_path/../Frameworks/QtCore.framework/Versions/4/QtCore QUI.app/Contents/Frameworks/QtSql.framework/Versions/4/QtSql
+
+
+install_name_tool -change QtSql.framework/Versions/4/QtSql @executable_path/../Frameworks/QtSql.framework/Versions/4/QtSql QUI.app/Contents/PlugIns/sqldrivers/libqsqlite.dylib
+install_name_tool -change QtCore.framework/Versions/4/QtCore @executable_path/../Frameworks/QtCore.framework/Versions/4/QtCore QUI.app/Contents/PlugIns/sqldrivers/libqsqlite.dylib
+
+still to do:
+
+
+CIS panel
+ - move to excited states (not correlated methods)
+ - CIS_STATE_DERIV needs to be added and should only be activated if JOBTYPE is 
+   optimization or frequency.  should also be less than CIS_N_ROOTS
+
+ - CIS options should only be enabled if CIS_N_ROOTS is greateer than 0
+
+core_character currently integers, should probably be set to strings.
+
+
+
+Policies:
+
+o Rem variable names are stored in the database in UPPERCASE
+o Rem values can be a mixture of cases and should therefore be compared within
+  the program in a case insensitive fashion
+  
+o Advanced Options Stack.  Each page should be called Advanced* where * is the
+  text in the category tree list.

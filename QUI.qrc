@@ -1,0 +1,8 @@
+<!DOCTYPE RCC><RCC version="1.0">
+   <qresource>
+      <file>resources/icons/qchem.icns</file>
+      <file>resources/icons/qchem.png</file>
+      <file>resources/icons/minus.png</file>
+      <file>resources/icons/plus.png</file>
+   </qresource>
+</RCC>
