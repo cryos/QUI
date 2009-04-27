@@ -1,6 +1,6 @@
 /*!
  *  \file Process.C
- *  
+ *
  *  \author Andrew Gilbert
  *  \date   March 2009
  */
@@ -63,7 +63,7 @@ void Process::setArguments(QStringList const& arguments) {
 }
 
 
-//! Returns an identifyer for the status of the process.  
+//! Returns an identifyer for the status of the process.
 Status::ID Process::status() const {
    int s(state());
    if (!m_started) {
@@ -80,15 +80,15 @@ Status::ID Process::status() const {
 
 // ********** Timed ********** //
 
-Timed::Timed(QObject* parent, 
-             QString const& program, 
-             QStringList const& arguments) 
-  : Process(parent, program, arguments), m_days(0), m_elapsedTime(0), 
-    m_dayTimer(new QTimer()) { 
+Timed::Timed(QObject* parent,
+             QString const& program,
+             QStringList const& arguments)
+  : Process(parent, program, arguments), m_days(0), m_elapsedTime(0),
+    m_dayTimer(new QTimer()) {
 
    m_dayTimer->setInterval(1000 * 60 * 60 * 24); // number of msec in a day
    connect(m_dayTimer, SIGNAL(timeout()), this, SLOT(anotherDay()));
-   connect(this, SIGNAL(finished(int, QProcess::ExitStatus)), 
+   connect(this, SIGNAL(finished(int, QProcess::ExitStatus)),
       this, SLOT(finish(int, QProcess::ExitStatus)));
 }
 
@@ -112,11 +112,11 @@ QString Timed::formattedTime() {
    if (state() == QProcess::Running) {
       time = m_startTime.elapsed();
    }
-   
+
    time /= 1000;
-   int secs = time % 60;    
+   int secs = time % 60;
    time /= 60;
-   int mins = time % 60;    
+   int mins = time % 60;
    time /= 60;
    int hours = time;
 
@@ -134,12 +134,12 @@ QString Timed::formattedTime() {
 
 // ********** Monitored ********** //
 
-Monitored::Monitored(QObject* parent, QString const& program, 
-   QStringList const& arguments) 
+Monitored::Monitored(QObject* parent, QString const& program,
+   QStringList const& arguments)
    : Timed(parent, program, arguments), m_error("") {
 
    connect(this, SIGNAL(started()), this, SLOT(processStarted()));
-   connect(this, SIGNAL(finished(int, QProcess::ExitStatus)), 
+   connect(this, SIGNAL(finished(int, QProcess::ExitStatus)),
       this, SLOT(processFinished(int, QProcess::ExitStatus)));
 }
 
@@ -175,14 +175,14 @@ void Monitored::setOutputFile(QString const& fileName) {
 
 // ********** QChem Process ********** //
 
-QChem::QChem(QObject* parent, QString const& input, QString const& output) 
+QChem::QChem(QObject* parent, QString const& input, QString const& output)
   : Monitored(parent, Preferences::QChemRunScript()) {
 
    setInputFile(input);
    setOutputFile(output);
 
    QFileInfo inputFileInfo(input);
-   qDebug() << "Setting Process::QChem working directory to" 
+   qDebug() << "Setting Process::QChem working directory to"
             << inputFileInfo.path();
    setWorkingDirectory(inputFileInfo.path());
 
@@ -190,7 +190,7 @@ QChem::QChem(QObject* parent, QString const& input, QString const& output)
    args << inputFileInfo.fileName();
    setArguments(args);
 
-   connect(this, SIGNAL(finished(int, QProcess::ExitStatus)), 
+   connect(this, SIGNAL(finished(int, QProcess::ExitStatus)),
       this, SLOT(cleanUp(int, QProcess::ExitStatus)));
 }
 
@@ -212,14 +212,14 @@ void QChem::checkForErrors() {
    if (error >= 0 && lines.size() > error+2) {
       m_error = lines[error+2];
       m_status = Status::Error;
-   } 
+   }
 }
 
 
 void QChem::renameFchkFile() {
    QFileInfo output(outputFile());
    QFileInfo fchk(output.completeBaseName() + ".FChk");
-   
+
    QFileInfo tmp(output.path() + "/Test.FChk");
    if (tmp.exists()) {
       QDir dir(output.dir());
@@ -304,10 +304,10 @@ void Monitor::on_removeProcessButton_clicked(bool) {
          qDebug() << "Need to remove process from list" << iter->first;
          m_timer->stop();
          QList<QTableWidgetItem*> items(m_ui.processTable->selectedItems());
-         m_ui.processTable->removeRow(items[0]->row());      
+         m_ui.processTable->removeRow(items[0]->row());
 qDebug() << "Sending processRemoved() signal" << iter->second;
          processRemoved(iter->second);
-         m_processList.erase(iter);         
+         m_processList.erase(iter);
          refresh();
          m_timer->start();
       }else {
@@ -351,9 +351,9 @@ void Monitor::on_viewOutputButton_clicked(bool) {
 
 
 void Monitor::addProcess(Monitored* process) {
-   m_processList[QString::number(int(process))] = process;
+   m_processList[QString::number(qulonglong(process))] = process;
    QTableWidget* table(m_ui.processTable);
-   
+
    int row = table->rowCount();
    table->insertRow(row);
    for (int i = 0; i < table->columnCount(); ++i) {
@@ -379,7 +379,7 @@ void Monitor::refresh() {
           qDebug() << "!!! Could not find process" << item->text();
        }
    }
-   
+
    table->setSortingEnabled(true);
    m_ui.processTable->hideColumn(0);
    m_ui.processTable->hideColumn(3);
@@ -389,7 +389,7 @@ void Monitor::refresh() {
 void Monitor::updateRow(int row, Monitored* process) {
    QTableWidget* table(m_ui.processTable);
 
-   QString s = QString::number(int(process));
+   QString s = QString::number(qulonglong(process));
    table->item(row,0)->setText(s);
 
    s = QString::number(process->pid());
@@ -415,8 +415,8 @@ void Monitor::updateRow(int row, Monitored* process) {
 }
 
 
-void Monitor::on_processTable_cellDoubleClicked(int row, int) { 
-   displayOutputFile(row); 
+void Monitor::on_processTable_cellDoubleClicked(int row, int) {
+   displayOutputFile(row);
 }
 
 
@@ -442,7 +442,7 @@ void Monitor::displayOutputFile(int row) {
 // ********** Queue ********** //
 
 void Queue::submit(Process* process) {
-   connect(process, SIGNAL(finished(int, QProcess::ExitStatus)), 
+   connect(process, SIGNAL(finished(int, QProcess::ExitStatus)),
       this, SLOT(processFinished(int, QProcess::ExitStatus)));
    m_processQueue.push(process);
    runQueue();
@@ -478,3 +478,5 @@ void Queue::runQueue() {
 
 
 } } // end namespaces Qui::Process
+
+#include "Process.moc"

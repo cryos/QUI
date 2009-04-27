@@ -1,11 +1,11 @@
 /*!
  *  \file InputDialogLogic.C
- *  
+ *
  *  \brief This is a member function of the QChem::InputDialog class which
  *  controls the setup of the logic associated directly with the interface.
  *  Logic associated with the QChem executable should go into the routine
  *  InitizeQChemLogic
- *  
+ *
  *  \author Andrew Gilbert
  *  \date   August 2008
  */
@@ -14,6 +14,8 @@
 #include "Actions.h"
 #include "Conditions.h"
 #include "InputDialog.h"
+
+#include <QDialog>
 
 
 // Note: when testing for activated checkboxes, true is 2, false is 0
@@ -42,52 +44,52 @@ void InputDialog::initializeQuiLogic() {
    // Setup -> Energy
    node = &reg.get("EXCHANGE");
    node->addRule(
-      If(*node == S("User-defined"),  
+      If(*node == S("User-defined"),
          Disable(m_ui.correlation)
       )
    );
    node->addRule(
-     If(isCompoundFunctional, 
-        Disable(m_ui.correlation), 
-        Enable(m_ui.correlation) 
+     If(isCompoundFunctional,
+        Disable(m_ui.correlation),
+        Enable(m_ui.correlation)
      )
    );
 
    node = &reg.get("CORRELATION");
    node->addRule(
-      If(*node == S("MP2"), 
-         Enable(m_ui.cd_algorithm), 
-         Disable(m_ui.cd_algorithm) 
+      If(*node == S("MP2"),
+         Enable(m_ui.cd_algorithm),
+         Disable(m_ui.cd_algorithm)
       )
    );
    node->addRule(
-      If(*node == S("RIMP2"),  
-         Enable(m_ui.auxiliary_basis), 
-         Disable(m_ui.auxiliary_basis) 
+      If(*node == S("RIMP2"),
+         Enable(m_ui.auxiliary_basis),
+         Disable(m_ui.auxiliary_basis)
       )
    );
    node = &reg.get("ECP");
    node->addRule(
-      If(*node != S("None"), 
-         reg.get("BASIS").makeSameAs(node) 
+      If(*node != S("None"),
+         reg.get("BASIS").makeSameAs(node)
       )
    );
 
    node = &reg.get("BASIS2");
    node->addRule(
-      If(*node != S("None"), 
-         reg.get("ECP").shouldBe("None") 
+      If(*node != S("None"),
+         reg.get("ECP").shouldBe("None")
       )
    );
- 
+
 
 
    // Setup -> Frequencies
    node = &reg.get("ANHARMONIC");
    node->addRule(
       If(*node == QtTrue,
-         Enable(m_ui.vci), 
-         Disable(m_ui.vci) 
+         Enable(m_ui.vci),
+         Disable(m_ui.vci)
       )
    );
 
@@ -95,16 +97,16 @@ void InputDialog::initializeQuiLogic() {
    // Setup -> Ab Initio MD
    node = &reg.get("AIMD_METHOD");
    node->addRule(
-      If(*node == S("BOMD"), 
-         Disable(m_ui.deuterate), 
-         Enable(m_ui.deuterate) 
+      If(*node == S("BOMD"),
+         Disable(m_ui.deuterate),
+         Enable(m_ui.deuterate)
       )
    );
    node = &reg.get("AIMD_INITIAL_VELOCITIES");
    node->addRule(
-      If(*node == QString("Thermal"), 
-         Enable(m_ui.aimd_temperature), 
-         Disable(m_ui.aimd_temperature) 
+      If(*node == QString("Thermal"),
+         Enable(m_ui.aimd_temperature),
+         Disable(m_ui.aimd_temperature)
       )
    );
 
@@ -112,9 +114,9 @@ void InputDialog::initializeQuiLogic() {
    // Setup -> Transition State
    node = &reg.get("JOB_TYPE");
    node->addRule(
-      If(*node == S("Transition State"),  
-         Enable(m_ui.geom_opt_mode), 
-         Disable(m_ui.geom_opt_mode) 
+      If(*node == S("Transition State"),
+         Enable(m_ui.geom_opt_mode),
+         Disable(m_ui.geom_opt_mode)
       )
    );
 
@@ -124,30 +126,30 @@ void InputDialog::initializeQuiLogic() {
    // Advanced -> SCF Control
    node = &reg.get("SCF_ALGORITHM");
    node->addRule(
-      If(*node == S("DM"),  
-         Enable(m_ui.pseudo_canonical), 
-         Disable(m_ui.pseudo_canonical) 
+      If(*node == S("DM"),
+         Enable(m_ui.pseudo_canonical),
+         Disable(m_ui.pseudo_canonical)
       )
    );
    node->addRule(
-      If(*node == S("DIIS_DM") || *node == S("DIIS_GDM"),  
+      If(*node == S("DIIS_DM") || *node == S("DIIS_GDM"),
          Enable(m_ui.diis_max_cycles)
-         + Enable(m_ui.diis_switch_thresh), 
-         Disable(m_ui.diis_max_cycles) 
-         + Disable(m_ui.diis_switch_thresh) 
+         + Enable(m_ui.diis_switch_thresh),
+         Disable(m_ui.diis_max_cycles)
+         + Disable(m_ui.diis_switch_thresh)
       )
    );
    node->addRule(
-      If(*node == S("RCA") || *node == S("RCA_DIIS"),  
-         Enable(m_ui.rca_print) 
+      If(*node == S("RCA") || *node == S("RCA_DIIS"),
+         Enable(m_ui.rca_print)
          + Enable(m_ui.rca_max_cycles),
-         Disable(m_ui.rca_print) 
-         + Disable(m_ui.rca_max_cycles) 
+         Disable(m_ui.rca_print)
+         + Disable(m_ui.rca_max_cycles)
       )
    );
    node->addRule(
-      If(*node == S("RCA_DIIS"),  
-         Enable(m_ui.rca_switch_thresh), 
+      If(*node == S("RCA_DIIS"),
+         Enable(m_ui.rca_switch_thresh),
          Disable(m_ui.rca_switch_thresh)
       )
    );
@@ -156,7 +158,7 @@ void InputDialog::initializeQuiLogic() {
    // Advanced -> SCF Control -> DFT
    node = &reg.get("XC_GRID");
    node->addRule(
-      If(*node == S("SG-0") || *node == S("SG-1"),  
+      If(*node == S("SG-0") || *node == S("SG-1"),
          Disable(m_ui.qui_radial_grid),
          Enable(m_ui.qui_radial_grid)
       )
@@ -174,11 +176,11 @@ void InputDialog::initializeQuiLogic() {
 
    node = &reg.get("INCDFT");
    node->addRule(
-      If(*node == QtFalse,  
+      If(*node == QtFalse,
          Disable(m_ui.incdft_dendiff_thresh)
          + Disable(m_ui.incdft_dendiff_varthresh)
          + Disable(m_ui.incdft_griddiff_thresh)
-         + Disable(m_ui.incdft_griddiff_varthresh), 
+         + Disable(m_ui.incdft_griddiff_varthresh),
 
          Enable(m_ui.incdft_dendiff_thresh)
          + Enable(m_ui.incdft_dendiff_varthresh)
@@ -191,14 +193,14 @@ void InputDialog::initializeQuiLogic() {
    // Advanced -> SCF Control -> DFT -> Constrained DFT
    node = &reg.get("CDFT");
    node->addRule(
-      If(*node == QtTrue, 
+      If(*node == QtTrue,
          Enable(m_ui.cdft_prediis)
          + Enable(m_ui.cdft_postdiis)
-         + Enable(m_ui.cdft_thresh), 
+         + Enable(m_ui.cdft_thresh),
 
-         Disable(m_ui.cdft_prediis) 
-         + Disable(m_ui.cdft_postdiis) 
-         + Disable(m_ui.cdft_thresh) 
+         Disable(m_ui.cdft_prediis)
+         + Disable(m_ui.cdft_postdiis)
+         + Disable(m_ui.cdft_thresh)
       )
    );
 
@@ -217,11 +219,11 @@ void InputDialog::initializeQuiLogic() {
    // Advanced -> SCF Control -> PAO
    node = &reg.get("PAO_METHOD");
    node->addRule(
-      If(*node == S("PAO"), 
+      If(*node == S("PAO"),
          Disable(m_ui.epao_iterate)
          + Disable(m_ui.epao_weights),
-         Enable(m_ui.epao_iterate) 
-         + Enable(m_ui.epao_weights) 
+         Enable(m_ui.epao_iterate)
+         + Enable(m_ui.epao_weights)
       )
    );
 
@@ -229,33 +231,33 @@ void InputDialog::initializeQuiLogic() {
    // Advanced -> Wavefunction Analysis
    node = &reg.get("DMA");
    node->addRule(
-      If(*node == QtTrue, 
-         Enable(m_ui.dma_midpoints), 
-         Disable(m_ui.dma_midpoints) 
+      If(*node == QtTrue,
+         Enable(m_ui.dma_midpoints),
+         Disable(m_ui.dma_midpoints)
       )
    );
 
-  
+
    // Advanced -> Wavefunction Analysis -> Plots
    node = &reg.get("PLOTS_GRID");
    node->addRule(
-      If(*node == S("None"),  
+      If(*node == S("None"),
          Disable(m_ui.plots_property)
-         + Disable(m_ui.qui_plots_points), 
+         + Disable(m_ui.qui_plots_points),
          Enable(m_ui.plots_property)
-         + Enable(m_ui.qui_plots_points) 
+         + Enable(m_ui.qui_plots_points)
       )
    );
    node->addRule(
-      If(*node == S("User-defined"),  
+      If(*node == S("User-defined"),
          boost::bind(&InputDialog::printSection, this, "plots", true),
          boost::bind(&InputDialog::printSection, this, "plots", false)
       )
    );
    node->addRule(
-      If(*node == S("Read from file"),  
-         Enable(m_ui.qui_plots_points), 
-         Disable(m_ui.qui_plots_points) 
+      If(*node == S("Read from file"),
+         Enable(m_ui.qui_plots_points),
+         Disable(m_ui.qui_plots_points)
       )
    );
 
@@ -276,7 +278,7 @@ void InputDialog::initializeQuiLogic() {
          + Disable(m_ui.intracule_j_series_limit)
          + Disable(m_ui.intracule_i_series_limit)
          + Disable(m_ui.intracule_wigner_series_limit)
-         + Disable(m_ui.intracule_conserve_memory) 
+         + Disable(m_ui.intracule_conserve_memory)
       )
    );
 
@@ -284,29 +286,29 @@ void InputDialog::initializeQuiLogic() {
    // Advanced -> Large Molecule Methods -> CFMM
    node = &reg.get("GRAIN");
    node->addRule(
-      If(*node == S("Off"), 
+      If(*node == S("Off"),
          Disable(m_ui.cfmm_order)
-         + Disable(m_ui.lin_k),  
-         Enable(m_ui.cfmm_order) 
-         + Enable(m_ui.lin_k) 
+         + Disable(m_ui.lin_k),
+         Enable(m_ui.cfmm_order)
+         + Enable(m_ui.lin_k)
       )
    );
    // These are around the other way as the default is cfmm on
    node = &reg.get("QUI_CFMM");
    node->addRule(
-      If(*node == QtFalse, 
+      If(*node == QtFalse,
          Disable(m_ui.cfmm_grain)
          + Disable(m_ui.cfmm_order)
-         + Disable(m_ui.lin_k), 
-         Enable(m_ui.cfmm_grain) 
-         + Enable(m_ui.cfmm_order) 
-         + Enable(m_ui.lin_k) 
+         + Disable(m_ui.lin_k),
+         Enable(m_ui.cfmm_grain)
+         + Enable(m_ui.cfmm_order)
+         + Enable(m_ui.lin_k)
       )
    );
 /*
    node = &reg.get("JOB_TYPE");
    node->addRule(
-      If(requiresDerivatives, 
+      If(requiresDerivatives,
          SetValue(m_ui.cfmm_order,25),
          SetValue(m_ui.cfmm_order,15)
       )
@@ -317,13 +319,13 @@ void InputDialog::initializeQuiLogic() {
    // Advanced -> Large Molecule Methods -> FTC
    node = &reg.get("FTC");
    node->addRule(
-      If(*node == QtTrue, 
+      If(*node == QtTrue,
          Enable(m_ui.ftc_fast)
          + Enable(m_ui.ftc_class_thresh_order)
-         + Enable(m_ui.ftc_class_thresh_mult), 
-         Disable(m_ui.ftc_fast) 
-         + Disable(m_ui.ftc_class_thresh_order) 
-         + Disable(m_ui.ftc_class_thresh_mult) 
+         + Enable(m_ui.ftc_class_thresh_mult),
+         Disable(m_ui.ftc_fast)
+         + Disable(m_ui.ftc_class_thresh_order)
+         + Disable(m_ui.ftc_class_thresh_mult)
       )
    );
 
@@ -331,9 +333,9 @@ void InputDialog::initializeQuiLogic() {
    // Advanced -> Large Molecule Methods -> CASE
    node = &reg.get("INTEGRAL_2E_OPR");
    node->addRule(
-     If(*node == QtTrue, 
-        Enable(m_ui.omega), 
-        Disable(m_ui.omega) 
+     If(*node == QtTrue,
+        Enable(m_ui.omega),
+        Disable(m_ui.omega)
      )
    );
 
@@ -341,7 +343,7 @@ void InputDialog::initializeQuiLogic() {
    // Advanced -> QMMM
    node = &reg.get("QMMM");
    node->addRule(
-     If(*node == QtTrue, 
+     If(*node == QtTrue,
         Enable(m_ui.qmmm_charges)
         + Enable(m_ui.qmmm_print)
         + Enable(m_ui.link_atom_projection),
@@ -356,14 +358,14 @@ void InputDialog::initializeQuiLogic() {
              Enable(m_ui.qmmm_full_hessian),
              Disable(m_ui.qmmm_full_hessian)
           );
-   
+
    node->addRule(rule);
    node2->addRule(rule);
 
 
    node  = &reg.get("QUI_SECTION_EXTERNAL_CHARGES");
    node->addRule(
-      If(*node == QtTrue, 
+      If(*node == QtTrue,
         reg.get("SYMMETRY_INTEGRAL").shouldBe(QtFalse)
         + reg.get("SYMMETRY_IGNORE").shouldBe(QtTrue)
       )
@@ -382,10 +384,10 @@ void InputDialog::initializeQuiLogic() {
    node->addRule(
       If(*node == QtTrue,
          Disable(m_ui.n_frozen_core)
-         + Disable(m_ui.n_frozen_virtual), 
+         + Disable(m_ui.n_frozen_virtual),
          Enable(m_ui.n_frozen_core)
          + Enable(m_ui.n_frozen_virtual)
-      ) 
+      )
    );
 
 
@@ -395,19 +397,19 @@ void InputDialog::initializeQuiLogic() {
       If(*node == QtTrue,
          Enable(m_ui.cc_two_particle_properties)
          + Enable(m_ui.cc_amplitude_response)
-         + Enable(m_ui.cc_full_response), 
+         + Enable(m_ui.cc_full_response),
          Disable(m_ui.cc_two_particle_properties)
          + Disable(m_ui.cc_amplitude_response)
          + Disable(m_ui.cc_full_response)
-      ) 
+      )
    );
 
    node = &reg.get("CC_MP2NO_GUESS");
    node->addRule(
       If(*node == QtTrue,
-         Enable(m_ui.cc_mp2no_grad), 
+         Enable(m_ui.cc_mp2no_grad),
          Disable(m_ui.cc_mp2no_grad)
-      ) 
+      )
    );
 
 
@@ -415,9 +417,9 @@ void InputDialog::initializeQuiLogic() {
    node = &reg.get("CC_DIIS");
    node->addRule(
       If(*node == S("Switch"),
-         Enable(m_ui.cc_diis12_switch), 
+         Enable(m_ui.cc_diis12_switch),
          Disable(m_ui.cc_diis12_switch)
-      ) 
+      )
    );
 
 
@@ -425,26 +427,26 @@ void InputDialog::initializeQuiLogic() {
    node = &reg.get("CC_RESTART");
    node->addRule(
       If(*node == QtTrue,
-         Enable(m_ui.cc_restart_no_scf), 
+         Enable(m_ui.cc_restart_no_scf),
          Disable(m_ui.cc_restart_no_scf)
-      ) 
+      )
    );
 
 
    // Advanced -> Excited States -> CIS
    node = &reg.get("JOB_TYPE");
    node->addRule(
-      If(*node == S("Geometry") || *node == S("Frequencies") 
-                                || *node == S("Forces"), 
-         Enable(m_ui.cis_state_derivative), 
-         Disable(m_ui.cis_state_derivative) 
+      If(*node == S("Geometry") || *node == S("Frequencies")
+                                || *node == S("Forces"),
+         Enable(m_ui.cis_state_derivative),
+         Disable(m_ui.cis_state_derivative)
       )
    );
    node = &reg.get("CIS_GUESS_DISK");
    node->addRule(
       If(*node == QtTrue,
-         Enable(m_ui.cis_guess_disk_type), 
-         Disable(m_ui.cis_guess_disk_type) 
+         Enable(m_ui.cis_guess_disk_type),
+         Disable(m_ui.cis_guess_disk_type)
       )
    );
 
@@ -452,15 +454,15 @@ void InputDialog::initializeQuiLogic() {
    // Advanced -> Excited States -> TD DFT
    node = &reg.get("CIS_RAS");
    node->addRule(
-      If(*node == QtTrue, 
+      If(*node == QtTrue,
          Enable(m_ui.cis_ras_type)
          + Enable(m_ui.cis_ras_cutoff_occupied)
          + Enable(m_ui.cis_ras_cutoff_virtual)
          + Enable(m_ui.cis_ras_print),
-         Disable(m_ui.cis_ras_type) 
-         + Disable(m_ui.cis_ras_cutoff_occupied) 
-         + Disable(m_ui.cis_ras_cutoff_virtual) 
-         + Disable(m_ui.cis_ras_print) 
+         Disable(m_ui.cis_ras_type)
+         + Disable(m_ui.cis_ras_cutoff_occupied)
+         + Disable(m_ui.cis_ras_cutoff_virtual)
+         + Disable(m_ui.cis_ras_print)
       )
    );
 
@@ -468,15 +470,15 @@ void InputDialog::initializeQuiLogic() {
    // Advanced -> Excited States -> EOM -> Properties
    node = &reg.get("CC_EOM_PROPERTIES");
    node->addRule(
-      If(*node == QtTrue, 
+      If(*node == QtTrue,
          Enable(m_ui.cc_eom_transition_properties)
          + Enable(m_ui.cc_eom_amplitude_response)
          + Enable(m_ui.cc_eom_full_response)
-         + Enable(m_ui.cc_eom_two_particle_properties), 
-         Disable(m_ui.cc_eom_transition_properties) 
-         + Disable(m_ui.cc_eom_amplitude_response) 
-         + Disable(m_ui.cc_eom_full_response) 
-         + Disable(m_ui.cc_eom_two_particle_properties) 
+         + Enable(m_ui.cc_eom_two_particle_properties),
+         Disable(m_ui.cc_eom_transition_properties)
+         + Disable(m_ui.cc_eom_amplitude_response)
+         + Disable(m_ui.cc_eom_full_response)
+         + Disable(m_ui.cc_eom_two_particle_properties)
       )
    );
 
@@ -503,8 +505,8 @@ void InputDialog::initializeQuiLogic() {
       )
    );
    node->addRule(
-      If(*node == QtTrue,  
-        node2->shouldBe(QtTrue), 
+      If(*node == QtTrue,
+        node2->shouldBe(QtTrue),
         node2->shouldBe(QtFalse)
       )
    );
@@ -513,15 +515,15 @@ void InputDialog::initializeQuiLogic() {
    // Advanced -> Solvation Models -> ChemSol
    node = &reg.get("CHEMSOL");
    node->addRule(
-      If(*node == QtTrue, 
+      If(*node == QtTrue,
          Enable(m_ui.chemsol_nn)
          + Enable(m_ui.chemsol_print)
          + Enable(m_ui.chemsol_efield)
-         + Enable(m_ui.chemsol_read_vdw), 
-         Disable(m_ui.chemsol_nn) 
+         + Enable(m_ui.chemsol_read_vdw),
+         Disable(m_ui.chemsol_nn)
          + Disable(m_ui.chemsol_print)
          + Disable(m_ui.chemsol_efield)
-         + Disable(m_ui.chemsol_read_vdw) 
+         + Disable(m_ui.chemsol_read_vdw)
       )
    );
 
@@ -530,7 +532,7 @@ void InputDialog::initializeQuiLogic() {
    // Section logic ----------------------------------------------------------
    node = &reg.get("QUI_TITLE");
    node->addRule(
-      If(*node == S(""), 
+      If(*node == S(""),
          boost::bind(&InputDialog::printSection, this, "comment", false),
          boost::bind(&InputDialog::printSection, this, "comment", true)
       )
@@ -538,7 +540,7 @@ void InputDialog::initializeQuiLogic() {
 
    node = &reg.get("EXCHANGE");
    node->addRule(
-      If(*node == S("User-defined"), 
+      If(*node == S("User-defined"),
          boost::bind(&InputDialog::printSection, this, "xc_functional", true),
          boost::bind(&InputDialog::printSection, this, "xc_functional", false)
       )
@@ -546,20 +548,20 @@ void InputDialog::initializeQuiLogic() {
 
    node = &reg.get("CHEMSOL_READ_VDW");
    node->addRule(
-      If(*node == S("User-defined"), 
+      If(*node == S("User-defined"),
          boost::bind(&InputDialog::printSection, this, "van_der_waals", true),
          boost::bind(&InputDialog::printSection, this, "van_der_waals", false)
       )
    );
 
    node = &reg.get("ECP");
-   node->addRule( 
-      If(*node == S("User-defined"), 
+   node->addRule(
+      If(*node == S("User-defined"),
          boost::bind(&InputDialog::printSection, this, "ecp", true),
          boost::bind(&InputDialog::printSection, this, "ecp", false)
-      ) 
+      )
    );
-           
+
    node = &reg.get("BASIS");
    node->addRule(
       If(*node == S("User-defined") || *node == S("Mixed"),
@@ -592,7 +594,7 @@ void InputDialog::initializeQuiLogic() {
          boost::bind(&InputDialog::printSection, this, "isotopes", false)
       )
    );
-  
+
    node = &reg.get("JOB_TYPE");
    node->addRule(
       If (*node == S("Geometry") || *node == S("Reaction Path")

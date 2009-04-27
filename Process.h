@@ -2,7 +2,7 @@
 #define QUI_PROCESS_H
 
 /*!
- *  \file Process.h 
+ *  \file Process.h
  *
  *  \brief Class definitions associated with process control in the Qui.
  *
@@ -24,14 +24,14 @@
 #include <vector>
 #include <queue>
 
-
+#include <signal.h>
 
 namespace Qui {
 namespace Process {
 
 
 struct Status {
-   enum ID { NotRunning = 0, Starting, Running, Queued, Crashed, Killed, 
+   enum ID { NotRunning = 0, Starting, Running, Queued, Crashed, Killed,
              Error, Finished, Unknown };
 };
 
@@ -42,17 +42,17 @@ bool KillProcess(int const pid, int const signal = SIGTERM);
 
 //! \class Process is a base class for the other process types, Timed,
 //! Monitored etc.  It caches the program name and arguments for use in
-//! a Queue and also over-rides some of the QProcess functions to allow 
+//! a Queue and also over-rides some of the QProcess functions to allow
 //! polymorphism.
 class Process : public QProcess {
 
    Q_OBJECT
 
    public:
-      Process(QObject* parent, 
-              QString const& program, 
-              QStringList const& arguments) 
-       : QProcess(parent),  m_program(program), m_arguments(arguments), 
+      Process(QObject* parent,
+              QString const& program,
+              QStringList const& arguments)
+       : QProcess(parent),  m_program(program), m_arguments(arguments),
          m_status(Status::Unknown), m_started(false) { }
 
       virtual ~Process() { }
@@ -80,8 +80,8 @@ class Timed : public Process {
    Q_OBJECT
 
    public:
-      Timed(QObject* parent, 
-            QString const& program, 
+      Timed(QObject* parent,
+            QString const& program,
             QStringList const& arguments);
       virtual ~Timed() { }
       virtual void start();
@@ -110,8 +110,8 @@ class Monitored : public Timed {
 
    public:
 
-      Monitored(QObject* parent, 
-                QString const& program, 
+      Monitored(QObject* parent,
+                QString const& program,
                 QStringList const& arguments = QStringList());
       virtual ~Monitored() { }
 
@@ -151,7 +151,6 @@ class QChem : public Monitored {
    public:
       QChem(QObject* parent, QString const& input, QString const& output);
 
-      void kill();
       int  pid() const;
 
    private Q_SLOTS:
@@ -175,11 +174,11 @@ class Monitor: public QMainWindow {
    public:
       typedef std::map<QString, Monitored*> ProcessMap;
 
-      Monitor(QWidget* parent, 
-         std::vector<Monitored*> const& processList = 
-            std::vector<Monitored*>(), 
+      Monitor(QWidget* parent,
+         std::vector<Monitored*> const& processList =
+            std::vector<Monitored*>(),
          int updateInterval = 2345);
-      ~Monitor() { }  
+      ~Monitor() { }
 
       void addProcess(Monitored* process);
 
@@ -216,7 +215,7 @@ class Queue : public QObject {
    Q_OBJECT
 
    public:
-      Queue(QObject* parent, int maxProcesses = 1) 
+      Queue(QObject* parent, int maxProcesses = 1)
        : QObject(parent), m_nProcesses(0), m_maxProcesses(maxProcesses) { }
       ~Queue() { }
       void submit(Process* process);
@@ -228,7 +227,7 @@ class Queue : public QObject {
       void processFinished(int, QProcess::ExitStatus);
 
    private:
-      std::queue<Process*> m_processQueue; 
+      std::queue<Process*> m_processQueue;
       int m_nProcesses;
       int m_maxProcesses;
 

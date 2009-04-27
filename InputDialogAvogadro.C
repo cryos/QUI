@@ -1,9 +1,9 @@
 /*!
- *  \file InputDialogAvogadro.C 
- *  
+ *  \file InputDialogAvogadro.C
+ *
  *  \brief This file contains extensions to the InputDialog class that are only
  *  relevant when the QUI is compiled as an Avogadro extension
- *  
+ *
  *  \author Andrew Gilbert
  *  \date   November 2008
  */
@@ -12,17 +12,17 @@
 #error Macro AVOGADRO not defined in InputDialogAvogadro.C
 #endif
 
-
+#include <QDialog>
 #include <QTextStream>
 #include <QtDebug>
+#include <QObject>
 #include "InputDialog.h"
 #include "Job.h"
-#include <avogadro/glwidget.h>  // Hack, no?  This appears to be a catch-all include
 
+#include <avogadro/extension.h>
+#include <avogadro/molecule.h>
 
 using namespace Avogadro;
-using namespace OpenBabel;
-
 
 namespace Qui {
 

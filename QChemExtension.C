@@ -26,23 +26,16 @@
 #include "InputDialog.h"
 
 #include <vector>
-#include <openbabel/math/vector3.h>
-#include <openbabel/griddata.h>
-#include <openbabel/grid.h>
 
 #include <QDebug>
 
-
 using namespace std;
-using namespace OpenBabel;
-using namespace Eigen;
-
 
 namespace Avogadro {
 
-   QChemExtension::QChemExtension(QObject* parent) 
+   QChemExtension::QChemExtension(QObject* parent)
       : Extension(parent), m_qchemInputDialog(0), m_molecule(0) {
- 
+
       QAction* action = new QAction(this);
       action->setText(tr("Q-Chem Input"));
       action->setData("QChem");
@@ -94,5 +87,6 @@ qDebug() << "       InputDialog set" << m_qchemInputDialog;
 
 } // End namespace Avogadro
 
+#include "QChemExtension.moc"
 
 Q_EXPORT_PLUGIN2(qchemextension, Avogadro::QChemExtensionFactory)

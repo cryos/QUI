@@ -1,6 +1,6 @@
 /*!
  *  \file GeometryConstraint.C
- *  
+ *
  *  \author Andrew Gilbert
  *  \date   February 2009
  */
@@ -40,7 +40,7 @@ QString ToString(Type::ID const& type) {
 // ------
 // Dialog
 // ------
-Dialog::Dialog(QWidget* parent, OptSection* opt, int nAtoms) 
+Dialog::Dialog(QWidget* parent, OptSection* opt, int nAtoms)
  : QDialog(parent), m_opt(opt) {
 
    m_ui.setupUi(this);
@@ -282,7 +282,7 @@ void Dialog::on_addConstraint_clicked(bool) {
    int atom4(m_ui.atom4->value());
    QVariant value(m_ui.constraintValue->value());
 
-   addConstraintToTable(boost::make_tuple(type, atom1, atom2, 
+   addConstraintToTable(boost::make_tuple(type, atom1, atom2,
       atom3, atom4, value));
 }
 
@@ -294,7 +294,7 @@ void Dialog::on_addFixedAtom_clicked(bool) {
    if (m_ui.fixY->isChecked()) xyz += "Y";
    if (m_ui.fixZ->isChecked()) xyz += "Z";
 
-   addConstraintToTable(boost::make_tuple(Type::Fixed, atom, 
+   addConstraintToTable(boost::make_tuple(Type::Fixed, atom,
       -1, -1, -1, QVariant(xyz)));
 }
 
@@ -302,14 +302,14 @@ void Dialog::on_addFixedAtom_clicked(bool) {
 void Dialog::on_addDummyAtom_clicked(bool) {
    QString name(m_ui.dummyType->currentText());
    int i(m_ui.dummyType->currentIndex());
-   
+
    Type::ID type = i == 0 ? Type::DummyNormal :  Type::DummyBisector;
-   
+
    int atom1(m_ui.dAtom1->value());
    int atom2(m_ui.dAtom2->value());
    int atom3(m_ui.dAtom3->value());
 
-   addConstraintToTable(boost::make_tuple(type, atom1, atom2, 
+   addConstraintToTable(boost::make_tuple(type, atom1, atom2,
       atom3, -1, QVariant(m_nAtoms+1)));
 
    m_nAtoms++;
@@ -330,7 +330,7 @@ void Dialog::on_addConnectivityButton_clicked(bool) {
    if (atom3 > 0) connected.push_back(QVariant(atom3));
    if (atom4 > 0) connected.push_back(QVariant(atom4));
 
-   addConstraintToTable(boost::make_tuple(Type::Connect, target, -1, -1, -1, 
+   addConstraintToTable(boost::make_tuple(Type::Connect, target, -1, -1, -1,
       QVariant(connected)));
 }
 
@@ -341,7 +341,7 @@ void Dialog::on_deleteButton_clicked(bool) {
    QList<QTableWidgetItem*> list(table->selectedItems());
    if (list.count() > 1) {
       QString msg("Are you sure you want to delete the selected constraint?");
-      if (QMessageBox::question(this, "Delete Constraint?", msg, 
+      if (QMessageBox::question(this, "Delete Constraint?", msg,
           QMessageBox::Ok | QMessageBox::Cancel) == QMessageBox::Ok) {
 
          int row = table->row(list[0]);
@@ -378,7 +378,7 @@ void Dialog::on_okButton_clicked(bool) {
    int nRows(table->rowCount());
 
    for (int row = 0; row < nRows; ++row) {
-       qDebug() << "adding constraint"; 
+       qDebug() << "adding constraint";
        constraints.push_back(getConstraint(row));
    }
 
@@ -391,11 +391,11 @@ void Dialog::on_okButton_clicked(bool) {
 // Constraint
 // ----------
 
-//! Checks to see that the atom numbers are within the correct range 
+//! Checks to see that the atom numbers are within the correct range
 //! ( 1 <= n <= max) and that they are unique.
 bool Constraint::isValid(int const& max) const {
    bool valid(true);
-   QList<int>::const_iterator iter1, iter2;   
+   QList<int>::const_iterator iter1, iter2;
 
    for (iter1 = m_atomList.begin(); iter1 != m_atomList.end(); ++iter1) {
        valid = valid && 0 < *iter1 && *iter1 <= max;
@@ -430,39 +430,39 @@ Constraint* Constraint::fromString(QString const& s) {
    }
 
    if (id == "stre" && count  == 4) {
-      constraint = fromTable( boost::make_tuple(Type::Stretch, ints[1], 
+      constraint = fromTable( boost::make_tuple(Type::Stretch, ints[1],
          ints[2], -1, -1, QVariant(tokens[3])) );
 
    }else if (id == "bend" && count == 5) {
-      constraint = fromTable( boost::make_tuple(Type::Bend, ints[1], 
+      constraint = fromTable( boost::make_tuple(Type::Bend, ints[1],
          ints[2], ints[3], -1, QVariant(tokens[4])) );
 
    }else if (id == "outp" && count == 6) {
-      constraint = fromTable( boost::make_tuple(Type::OutOfPlane, ints[1], 
+      constraint = fromTable( boost::make_tuple(Type::OutOfPlane, ints[1],
          ints[2], ints[3], ints[3], QVariant(tokens[5])) );
 
    }else if (id == "tors" && count == 6) {
-      constraint = fromTable( boost::make_tuple(Type::Dihedral, ints[1], 
+      constraint = fromTable( boost::make_tuple(Type::Dihedral, ints[1],
          ints[2], ints[3], ints[3], QVariant(tokens[5])) );
 
    }else if (id == "linc" && count == 6) {
-      constraint = fromTable( boost::make_tuple(Type::Coplanar, ints[1], 
+      constraint = fromTable( boost::make_tuple(Type::Coplanar, ints[1],
          ints[2], ints[3], ints[3], QVariant(tokens[5])) );
 
    }else if (id == "linp" && count == 6) {
-      constraint = fromTable( boost::make_tuple(Type::Perpendicular, ints[1], 
+      constraint = fromTable( boost::make_tuple(Type::Perpendicular, ints[1],
          ints[2], ints[3], ints[3], QVariant(tokens[5])) );
 
    }else if (count == 2) {
-      constraint = fromTable( boost::make_tuple(Type::Fixed, ints[0], 
+      constraint = fromTable( boost::make_tuple(Type::Fixed, ints[0],
          -1, -1, -1, QVariant(tokens[1])) );
 
    }else if (count == 6 && ints[1] == 2) {
-      constraint = fromTable( boost::make_tuple(Type::DummyNormal, ints[3], 
+      constraint = fromTable( boost::make_tuple(Type::DummyNormal, ints[3],
          ints[4], ints[5], -1, QVariant(tokens[0])) );
 
    }else if (count == 6 && ints[1] == 3) {
-      constraint = fromTable( boost::make_tuple(Type::DummyBisector, ints[3], 
+      constraint = fromTable( boost::make_tuple(Type::DummyBisector, ints[3],
          ints[4], ints[5], -1, QVariant(tokens[0])) );
 
    }else if (count >= 3) {
@@ -472,7 +472,7 @@ Constraint* Constraint::fromString(QString const& s) {
       for (int i = 0; i < ints.size(); ++i) {
           list.push_back(QVariant(ints[i]));
       }
-      constraint = fromTable( boost::make_tuple(Type::Connect, ints[0], 
+      constraint = fromTable( boost::make_tuple(Type::Connect, ints[0],
          -1, -1, -1, QVariant(list)));
    }
 
@@ -491,56 +491,56 @@ Constraint* Constraint::fromTable(TableRow const& row) {
          double value(row.get<5>().toDouble());
          constraint = new Stretch(row.get<1>(), row.get<2>(), value);
       } break;
-      
+
       case Type::Bend: {
          double value(row.get<5>().toDouble());
          constraint = new Bend(row.get<1>(), row.get<2>(), row.get<3>(), value);
       } break;
-      
+
       case Type::OutOfPlane: {
          double value(row.get<5>().toDouble());
-         constraint = new OutOfPlane(row.get<1>(), row.get<2>(), 
+         constraint = new OutOfPlane(row.get<1>(), row.get<2>(),
             row.get<3>(), row.get<4>(), value);
       } break;
-      
+
       case Type::Dihedral: {
          double value(row.get<5>().toDouble());
-         constraint = new Dihedral(row.get<1>(), row.get<2>(), 
+         constraint = new Dihedral(row.get<1>(), row.get<2>(),
             row.get<3>(), row.get<4>(), value);
       } break;
-      
+
       case Type::Coplanar: {
          double value(row.get<5>().toDouble());
-         constraint = new Coplanar(row.get<1>(), row.get<2>(), 
+         constraint = new Coplanar(row.get<1>(), row.get<2>(),
             row.get<3>(), row.get<4>(), value);
       } break;
-      
+
       case Type::Perpendicular: {
          double value(row.get<5>().toDouble());
-         constraint = new Perpendicular(row.get<1>(), row.get<2>(), 
+         constraint = new Perpendicular(row.get<1>(), row.get<2>(),
             row.get<3>(), row.get<4>(), value);
       } break;
-      
+
       case Type::Fixed: {
          QString value(row.get<5>().toString());
          constraint = new Fixed(row.get<1>(), value);
       } break;
-      
+
       case Type::DummyNormal: {
          int value(row.get<5>().toInt());
          constraint = new DummyNormal(row.get<1>(), row.get<2>(), row.get<3>(),value);
       } break;
-      
+
       case Type::DummyBisector: {
          int value(row.get<5>().toInt());
          constraint = new DummyBisector(row.get<1>(), row.get<2>(), row.get<3>(),value);
       } break;
-      
+
       case Type::Connect: {
          QList<QVariant> value(row.get<5>().toList());
          constraint = new Connect(row.get<1>(), value);
       } break;
-   } 
+   }
 
    return constraint;
 }
@@ -556,7 +556,7 @@ QString Constraint::key() const {
           if (iter != atoms.begin()) m_key += ":";
           m_key += QString::number(*iter);
       }
-      
+
    }
    return m_key;
 }
@@ -580,7 +580,7 @@ QString Stretch::format() const {
 }
 
 TableRow Stretch::tableForm() const {
-   return boost::make_tuple(Type::Stretch, m_atomList[0], m_atomList[1], 
+   return boost::make_tuple(Type::Stretch, m_atomList[0], m_atomList[1],
       -1, -1, QVariant(m_value));
 }
 
@@ -608,7 +608,7 @@ QString Bend::format() const {
 }
 
 TableRow Bend::tableForm() const {
-   return boost::make_tuple(Type::Bend, m_atomList[0], m_atomList[1], 
+   return boost::make_tuple(Type::Bend, m_atomList[0], m_atomList[1],
       m_atomList[2], -1, QVariant(m_value));
 }
 
@@ -620,7 +620,7 @@ Bend* Bend::clone() const {
 // ----------
 // OutOfPlane
 // ----------
-OutOfPlane::OutOfPlane(int const& atom1, int const& atom2, int const& atom3, 
+OutOfPlane::OutOfPlane(int const& atom1, int const& atom2, int const& atom3,
    int const& atom4, double const& value) {
    m_atomList.push_back(atom1);
    m_atomList.push_back(atom2);
@@ -638,12 +638,12 @@ QString OutOfPlane::format() const {
 }
 
 TableRow OutOfPlane::tableForm() const {
-   return boost::make_tuple(Type::OutOfPlane, m_atomList[0], m_atomList[1], 
+   return boost::make_tuple(Type::OutOfPlane, m_atomList[0], m_atomList[1],
       m_atomList[2], m_atomList[3], QVariant(m_value));
 }
 
 OutOfPlane* OutOfPlane::clone() const {
-   return new OutOfPlane(m_atomList[0], m_atomList[1], m_atomList[2], 
+   return new OutOfPlane(m_atomList[0], m_atomList[1], m_atomList[2],
       m_atomList[3], m_value);
 }
 
@@ -652,7 +652,7 @@ OutOfPlane* OutOfPlane::clone() const {
 // --------
 // Dihedral
 // --------
-Dihedral::Dihedral(int const& atom1, int const& atom2, int const& atom3, 
+Dihedral::Dihedral(int const& atom1, int const& atom2, int const& atom3,
    int const& atom4, double const& value) {
    m_atomList.push_back(atom1);
    m_atomList.push_back(atom2);
@@ -670,12 +670,12 @@ QString Dihedral::format() const {
 }
 
 TableRow Dihedral::tableForm() const {
-   return boost::make_tuple(Type::Dihedral, m_atomList[0], m_atomList[1], 
+   return boost::make_tuple(Type::Dihedral, m_atomList[0], m_atomList[1],
       m_atomList[2], m_atomList[3], QVariant(m_value));
 }
 
 Dihedral* Dihedral::clone() const {
-   return new Dihedral(m_atomList[0], m_atomList[1], m_atomList[2], 
+   return new Dihedral(m_atomList[0], m_atomList[1], m_atomList[2],
       m_atomList[3], m_value);
 }
 
@@ -684,7 +684,7 @@ Dihedral* Dihedral::clone() const {
 // --------
 // Coplanar
 // --------
-Coplanar::Coplanar(int const& atom1, int const& atom2, int const& atom3, 
+Coplanar::Coplanar(int const& atom1, int const& atom2, int const& atom3,
    int const& atom4, double const& value) {
    m_atomList.push_back(atom1);
    m_atomList.push_back(atom2);
@@ -702,12 +702,12 @@ QString Coplanar::format() const {
 }
 
 TableRow Coplanar::tableForm() const {
-   return boost::make_tuple(Type::Coplanar, m_atomList[0], m_atomList[1], 
+   return boost::make_tuple(Type::Coplanar, m_atomList[0], m_atomList[1],
       m_atomList[2], m_atomList[3], QVariant(m_value));
 }
 
 Coplanar* Coplanar::clone() const {
-   return new Coplanar(m_atomList[0], m_atomList[1], m_atomList[2], 
+   return new Coplanar(m_atomList[0], m_atomList[1], m_atomList[2],
       m_atomList[3], m_value);
 }
 
@@ -716,7 +716,7 @@ Coplanar* Coplanar::clone() const {
 // -------------
 // Perpendicular
 // -------------
-Perpendicular::Perpendicular(int const& atom1, int const& atom2, int const& atom3, 
+Perpendicular::Perpendicular(int const& atom1, int const& atom2, int const& atom3,
    int const& atom4, double const& value) {
    m_atomList.push_back(atom1);
    m_atomList.push_back(atom2);
@@ -734,12 +734,12 @@ QString Perpendicular::format() const {
 }
 
 TableRow Perpendicular::tableForm() const {
-   return boost::make_tuple(Type::Perpendicular, m_atomList[0], m_atomList[1], 
+   return boost::make_tuple(Type::Perpendicular, m_atomList[0], m_atomList[1],
       m_atomList[2], m_atomList[3], QVariant(m_value));
 }
 
 Perpendicular* Perpendicular::clone() const {
-   return new Perpendicular(m_atomList[0], m_atomList[1], m_atomList[2], 
+   return new Perpendicular(m_atomList[0], m_atomList[1], m_atomList[2],
       m_atomList[3], m_value);
 }
 
@@ -774,7 +774,7 @@ Fixed* Fixed::clone() const {
 // -----------
 // DummyNormal
 // -----------
-DummyNormal::DummyNormal(int const& atom1, int const& atom2, int const& atom3, 
+DummyNormal::DummyNormal(int const& atom1, int const& atom2, int const& atom3,
    int const& atomNumber) {
    m_atomList.push_back(atom1);
    m_atomList.push_back(atom2);
@@ -787,7 +787,7 @@ QString DummyNormal::format() const {
 }
 
 TableRow DummyNormal::tableForm() const {
-   return boost::make_tuple(Type::DummyNormal, m_atomList[0], m_atomList[1], 
+   return boost::make_tuple(Type::DummyNormal, m_atomList[0], m_atomList[1],
       m_atomList[2], -1, QVariant("id=" + QString::number(m_atomNumber)));
 }
 
@@ -817,7 +817,7 @@ QString DummyBisector::format() const {
 }
 
 TableRow DummyBisector::tableForm() const {
-   return boost::make_tuple(Type::DummyBisector, m_atomList[0], m_atomList[1], 
+   return boost::make_tuple(Type::DummyBisector, m_atomList[0], m_atomList[1],
       m_atomList[2], -1, QVariant("id=" + QString::number(m_atomNumber)));
 }
 
@@ -840,7 +840,7 @@ Connect::Connect(int const& targetAtom, QList<int> const& linkedAtoms)
 }
 
 Connect::Connect(int const& targetAtom, QVariantList const& linkedAtoms)
-  : m_targetAtom(targetAtom) { 
+  : m_targetAtom(targetAtom) {
   for (int i = 0; i < linkedAtoms.size(); ++i) {
       m_atomList.push_back(linkedAtoms[i].toInt());
   }
@@ -851,7 +851,7 @@ bool Connect::isValid(int const& nAtoms) const {
 }
 
 QString Connect::format() const {
-   return  QString::number(m_targetAtom) + "  " + m_atomList.size() + 
+   return  QString::number(m_targetAtom) + "  " + m_atomList.size() +
        "  " + formatAtomList();
 }
 
@@ -874,3 +874,5 @@ Connect* Connect::clone() const {
 
 
 } } // end namespaces Qui::GeometryConstraint
+
+#include "GeometryConstraint.moc"

@@ -14,6 +14,7 @@
  */
 
 #include <map>
+#include <cstdlib>
 
 
 namespace Qui {

@@ -1,10 +1,10 @@
 /*!
- *  \file InputDialog.C 
- *  
+ *  \file InputDialog.C
+ *
  *  \brief This is the main class for the QChem input file generator.  If you
  *  think this class is bloated, it is because it is.  Further member functions
  *  can be found in InputDialogLogic.C and InputDialogSlots.C
- *  
+ *
  *  \author Andrew Gilbert
  *  \date   August 2008
  */
@@ -31,20 +31,22 @@
 #include "Preferences.h"
 #include "Process.h"
 
-
-
 namespace Qui {
 
 
-InputDialog::InputDialog(QWidget* parent) : 
-   QMainWindow(parent), 
-   m_molecule(0), 
-   m_fileIn(""), 
-   m_fileOut(""), 
-   m_db(OptionDatabase::instance()), 
-   m_reg(OptionRegister::instance()), 
-   m_taint(false), 
-   m_currentJob(0), 
+InputDialog::InputDialog(QWidget* parent) :
+#ifdef AVOGADRO
+   QDialog(parent),
+#else
+   QMainWindow(parent),
+#endif
+   m_molecule(0),
+   m_fileIn(""),
+   m_fileOut(""),
+   m_db(OptionDatabase::instance()),
+   m_reg(OptionRegister::instance()),
+   m_taint(false),
+   m_currentJob(0),
    m_currentProcess(0),
    m_avogadro(0),
    m_processMonitor(0),
@@ -60,9 +62,9 @@ InputDialog::InputDialog(QWidget* parent) :
 #else
    m_ui.qui_coordinates->hide();
    m_ui.label_coordinates->hide();
+   initializeMenus();
 #endif
 
-   initializeMenus();
    InitializeQChemLogic();
    initializeQuiLogic();
    initializeControls();
@@ -72,9 +74,9 @@ InputDialog::InputDialog(QWidget* parent) :
    QFileInfo file(Preferences::LastFileAccessed());
    file.setFile(file.dir(),"untitled.inp");
    Preferences::LastFileAccessed(file.filePath());
-   
+
    setWindowTitle("QChem Input File Editor - " + file.fileName());
-   
+
 
    m_ui.previewText->setCurrentFont(Preferences::PreviewFont());
 
@@ -109,7 +111,7 @@ void InputDialog::resizeEvent(QResizeEvent* event)  {
 // etc.) requires different member functions and so the controls cannot be
 // treated polymorphically.  The following routine initializes the controls and
 // (in the initializeControl subroutines) also binds Actions to be used later to
-// reset and update the controls.  This allows all the controls to be treated in 
+// reset and update the controls.  This allows all the controls to be treated in
 // a similar way.  What this means is that this function should be the only one
 // that has the implementation case switch logic and also the only one that needs
 // to perform dynamic casts on the controls.
@@ -119,11 +121,11 @@ void InputDialog::initializeControls() {
    QWidget* control;
    QString name, value;
    Option opt;
-  
+
    for (int i = 0; i < controls.count(); ++i) {
        control = controls[i];
        name = control->objectName().toUpper();
- 
+
        if (m_db.get(name, opt)) {
 
           switch (opt.getImplementation()) {
@@ -144,49 +146,49 @@ void InputDialog::initializeControls() {
                 initializeControl(opt, check);
              }
              break;
- 
+
              case Option::Impl_Text: {
                 QLineEdit* edit = qobject_cast<QLineEdit*>(control);
                 Q_ASSERT(edit);
                 initializeControl(opt, edit);
              }
              break;
- 
+
              case Option::Impl_Spin: {
                 QSpinBox* spin = qobject_cast<QSpinBox*>(control);
                 Q_ASSERT(spin);
                 initializeControl(opt, spin);
              }
              break;
- 
+
              case Option::Impl_DSpin: {
                 QDoubleSpinBox* dspin = qobject_cast<QDoubleSpinBox*>(control);
                 Q_ASSERT(dspin);
                 initializeControl(opt, dspin);
              }
              break;
- 
+
              case Option::Impl_Radio: {
                 QRadioButton* radio = qobject_cast<QRadioButton*>(control);
                 Q_ASSERT(radio);
                 initializeControl(opt, radio);
              }
              break;
- 
+
              default: {
                 qDebug() << "Error in QChem::InputDialog::initializeControl():\n"
                          << "  Could not initialize control " << name << "\n"
-                         << "  Widget does not match database.  Impl:" 
+                         << "  Widget does not match database.  Impl:"
                          << opt.getImplementation();
              }
              break;
           }
- 
- 
+
+
           if (m_reg.exists(name)) m_reg.get(name).setValue(opt.getDefaultValue());
- 
+
        }
- 
+
     }
 }
 
@@ -194,11 +196,11 @@ void InputDialog::initializeControls() {
 
 //! A simple loop for reseting the controls to their default values.  This
 //! routine takes advantage of the reset Actions that are set up in the
-//! initializeControl functions.  
+//! initializeControl functions.
 void InputDialog::resetControls() {
    std::vector<Action*>::iterator iter;
    for (iter = m_resetActions.begin(); iter != m_resetActions.end(); ++iter) {
-       (*iter)->operator()(); 
+       (*iter)->operator()();
    }
 }
 
@@ -215,7 +217,7 @@ void InputDialog::setControls(Job* job) {
        if (m_setUpdates.count(iter->first)) {
           m_setUpdates[iter->first]->operator()(iter->second);
        }else {
-          qDebug() << "Warning: Update not initialised for" 
+          qDebug() << "Warning: Update not initialised for"
                    << iter->first << "in InputDialog::setControls";
           qDebug() << " did you forget about it?";
        }
@@ -227,7 +229,7 @@ void InputDialog::setControls(Job* job) {
 //! The (overloaded) initializeControl routine is responsible for the following
 //! tasks:
 //!  - Ensuring the control displays the appropriate options based on the
-//!    contents of the OptionDatabase.  
+//!    contents of the OptionDatabase.
 //!  - Adding the ToolTip documentation found in the database.
 //!  - Adding connections (signals & slots) between the Nodes in the
 //!    OptionRegister and the control.  This allows for synchronization of the
@@ -248,9 +250,9 @@ void InputDialog::initializeControl(Option const& opt, QComboBox* combo) {
        split = opts[i].split("//");
 
        if (split.size() == 1) {
-          opts[i] = split[0];  
+          opts[i] = split[0];
        }else if (split.size() == 2) {
-          opts[i] = split[0];  
+          opts[i] = split[0];
           QString key(name.toUpper() + "::" + split[0]);
           //Job::addAdHoc(key,split[1]);
           RemSection::addAdHoc(name, split[0], split[1]);
@@ -285,7 +287,7 @@ void InputDialog::initializeControl(Option const& opt, QComboBox* combo) {
    m_resetActions.push_back(action);
 
    Update* update = new Update(
-      boost::bind( 
+      boost::bind(
          static_cast<void(*)(QComboBox*, QString const&)>(SetControl), combo, _1));
    m_setUpdates[name] = update;
 }
@@ -300,7 +302,7 @@ void InputDialog::initializeControl(Option const& opt, QCheckBox* check) {
    m_resetActions.push_back(action);
 
    Update* update = new Update(
-      boost::bind( 
+      boost::bind(
          static_cast<void(*)(QCheckBox*, QString const&)>(SetControl), check, _1));
    QString name = opt.getName();
    m_setUpdates[name] = update;
@@ -310,15 +312,15 @@ void InputDialog::initializeControl(Option const& opt, QCheckBox* check) {
 void InputDialog::initializeControl(Option const& opt, QSpinBox* spin) {
    connectControl(opt, spin);
    spin->setToolTip(opt.getDescription());
-   spin->setRange(opt.intMin(), opt.intMax());  
-   spin->setSingleStep(opt.intStep());  
+   spin->setRange(opt.intMin(), opt.intMax());
+   spin->setSingleStep(opt.intStep());
 
    Action* action = new Action(
       boost::bind(&QSpinBox::setValue, spin, opt.intDefault()) );
    m_resetActions.push_back(action);
 
    Update* update = new Update(
-      boost::bind( 
+      boost::bind(
          static_cast<void(*)(QSpinBox*, QString const&)>(SetControl), spin, _1));
    QString name = opt.getName();
    m_setUpdates[name] = update;
@@ -328,15 +330,15 @@ void InputDialog::initializeControl(Option const& opt, QSpinBox* spin) {
 void InputDialog::initializeControl(Option const& opt, QDoubleSpinBox* dspin) {
    connectControl(opt, dspin);
    dspin->setToolTip(opt.getDescription());
-   dspin->setRange(opt.doubleMin(), opt.doubleMax());  
-   dspin->setSingleStep(opt.doubleStep());  
+   dspin->setRange(opt.doubleMin(), opt.doubleMax());
+   dspin->setSingleStep(opt.doubleStep());
 
    Action* action = new Action(
       boost::bind(&QDoubleSpinBox::setValue, dspin, opt.doubleDefault()) );
    m_resetActions.push_back(action);
 
    Update* update = new Update(
-      boost::bind( 
+      boost::bind(
          static_cast<void(*)(QDoubleSpinBox*, QString const&)>(SetControl), dspin, _1));
    QString name = opt.getName();
    m_setUpdates[name] = update;
@@ -352,7 +354,7 @@ void InputDialog::initializeControl(Option const& opt, QRadioButton* radio) {
    m_resetActions.push_back(action);
 
    Update* update = new Update(
-      boost::bind( 
+      boost::bind(
          static_cast<void(*)(QRadioButton*, QString const&)>(SetControl), radio, _1));
    QString name = opt.getName();
    m_setUpdates[name] = update;
@@ -368,7 +370,7 @@ void InputDialog::initializeControl(Option const& opt, QLineEdit* edit) {
    m_resetActions.push_back(action);
 
    Update* update = new Update(
-      boost::bind( 
+      boost::bind(
          static_cast<void(*)(QLineEdit*, QString const&)>(SetControl), edit, _1));
    QString name = opt.getName();
    m_setUpdates[name] = update;
@@ -391,7 +393,7 @@ void InputDialog::connectControl(Option const& opt, QComboBox* combo) {
    }
 
    if (m_reg.exists(name)) {
-      connect(&(m_reg.get(name)), 
+      connect(&(m_reg.get(name)),
          SIGNAL(valueChanged(QString const&, QString const&)),
          this, SLOT(changeComboBox(QString const&, QString const&)) );
    }
@@ -401,11 +403,11 @@ void InputDialog::connectControl(Option const& opt, QComboBox* combo) {
 void InputDialog::connectControl(Option const& opt, QRadioButton* radio) {
    QString name = opt.getName();
 
-   connect(radio, SIGNAL(toggled(bool)), 
+   connect(radio, SIGNAL(toggled(bool)),
       this, SLOT(widgetChanged(bool)));
-      
+
    if (m_reg.exists(name)) {
-      connect(&(m_reg.get(name)), 
+      connect(&(m_reg.get(name)),
          SIGNAL(valueChanged(QString const&, QString const&)),
          this, SLOT(changeRadioButton(QString const&, QString const&)) );
    }
@@ -415,11 +417,11 @@ void InputDialog::connectControl(Option const& opt, QRadioButton* radio) {
 void InputDialog::connectControl(Option const& opt, QCheckBox* check) {
    QString name = opt.getName();
 
-   connect(check, SIGNAL(stateChanged(int)), 
+   connect(check, SIGNAL(stateChanged(int)),
       this, SLOT(widgetChanged(int)));
-      
+
    if (m_reg.exists(name)) {
-      connect(&(m_reg.get(name)), 
+      connect(&(m_reg.get(name)),
          SIGNAL(valueChanged(QString const&, QString const&)),
          this, SLOT(changeCheckBox(QString const&, QString const&)) );
    }
@@ -433,7 +435,7 @@ void InputDialog::connectControl(Option const& opt, QDoubleSpinBox* dspin) {
       this, SLOT(widgetChanged(const QString&)));
 
    if (m_reg.exists(name)) {
-      connect(&(m_reg.get(name)), 
+      connect(&(m_reg.get(name)),
          SIGNAL(valueChanged(QString const&, QString const&)),
          this, SLOT(changeDoubleSpinBox(QString const&, QString const&)) );
    }
@@ -443,11 +445,11 @@ void InputDialog::connectControl(Option const& opt, QDoubleSpinBox* dspin) {
 void InputDialog::connectControl(Option const& opt, QSpinBox* spin) {
    QString name = opt.getName();
 
-   connect(spin, SIGNAL(valueChanged(int)), 
+   connect(spin, SIGNAL(valueChanged(int)),
       this, SLOT(widgetChanged(int)));
-      
+
    if (m_reg.exists(name)) {
-      connect(&(m_reg.get(name)), 
+      connect(&(m_reg.get(name)),
          SIGNAL(valueChanged(QString const&, QString const&)),
          this, SLOT(changeSpinBox(QString const&, QString const&)) );
    }
@@ -457,11 +459,11 @@ void InputDialog::connectControl(Option const& opt, QSpinBox* spin) {
 void InputDialog::connectControl(Option const& opt, QLineEdit* edit) {
    QString name = opt.getName();
 
-   connect(edit, SIGNAL(textChanged(const QString&)), 
+   connect(edit, SIGNAL(textChanged(const QString&)),
       this, SLOT(widgetChanged(const QString&)));
 
    if (m_reg.exists(name)) {
-      connect(&(m_reg.get(name)), 
+      connect(&(m_reg.get(name)),
          SIGNAL(valueChanged(QString const&, QString const&)),
          this, SLOT(changeLineEdit(QString const&, QString const&)) );
    }
@@ -469,9 +471,9 @@ void InputDialog::connectControl(Option const& opt, QLineEdit* edit) {
 
 
 /***********************************************************************
- *   
+ *
  *  Private Member functions
- *  
+ *
  ***********************************************************************/
 
 //! The Job options are synchronised using the widgetChanged slot, but we still
@@ -510,7 +512,7 @@ void InputDialog::capturePreviewText() {
       std::vector<Job*>::iterator iter;
       for (iter = m_jobs.begin(); iter != m_jobs.end(); ++iter, ++i) {
           if (m_currentJob == *iter) currentJobIndex = i;
-      } 
+      }
 
       bool prompt(false);
       deleteAllJobs(prompt);
@@ -518,7 +520,7 @@ void InputDialog::capturePreviewText() {
 
       for (iter = jobs.begin(); iter != jobs.end(); ++iter) {
           addJobToList(*iter);
-      } 
+      }
 
       m_ui.jobList->setCurrentIndex(currentJobIndex);
    }
@@ -539,14 +541,14 @@ void InputDialog::updatePreviewText() {
    m_ui.previewText->setCurrentFont(Preferences::PreviewFont());
 
    QString buffer;
-  
+
    int pos(0), nJobs(m_jobs.size());
    m_ui.previewText->setTextColor("darkgrey");
    QString jobSeparator("\n@@@\n");
 
    for (int i = 0; i < nJobs ; ++i) {
        if (m_jobs[i] == m_currentJob) {
-          pos = buffer.size();  
+          pos = buffer.size();
           m_ui.previewText->setTextColor("black");
        }
        buffer += jobStrings.value(i);
@@ -557,7 +559,7 @@ void InputDialog::updatePreviewText() {
           m_ui.previewText->append(jobSeparator);
        }
    }
- 
+
    if (m_rememberMe != buffer) m_rememberMe = buffer;
 
    // This is a bit micky mouse, but I don't know of a better way of doing it.
@@ -591,8 +593,9 @@ QStringList InputDialog::generateInputDeckJobs(bool preview) {
    capturePreviewText();
 #ifdef AVOGADRO
    if (m_currentJob) {
-      m_currentJob->setSection("molecule",
-         ExtractGeometry(m_molecule, m_currentJob->getOption("QUI_COORDINATES")));
+/// FIXME - this function is currently missing
+//      m_currentJob->setSection("molecule",
+//         ExtractGeometry(m_molecule, m_currentJob->getOption("QUI_COORDINATES")));
    }
 #endif
    for (unsigned int i = 0; i < m_jobs.size(); ++i) {
@@ -632,7 +635,7 @@ bool InputDialog::hasValidMultiplicity() {
 
       if (N <= 0) {
          isValid = false;
-      }else if ( (M <= N+1) && 
+      }else if ( (M <= N+1) &&
                  ((N % 2) != (M % 2)) ) {
          isValid = true;
       }else {
@@ -657,4 +660,11 @@ void InputDialog::updateLJParameters() {
    }
 }
 
+void InputDialog::appendNewJob()
+{}
+void InputDialog::appendJob(Job*)
+{}
+
 } // end namespace Qui
+
+#include "InputDialog.moc"

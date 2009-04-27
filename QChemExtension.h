@@ -24,10 +24,9 @@
   02110-1301, USA.
  **********************************************************************/
 
-#include <QtGui/QAction>
-#include <avogadro/glwidget.h>
 #include <avogadro/extension.h>
 
+#include <QtGui/QAction>
 
 namespace Qui {
    class InputDialog;
@@ -38,16 +37,13 @@ namespace Avogadro
   class QChemExtension : public Extension
   {
   Q_OBJECT
+    AVOGADRO_EXTENSION("Q-Chem Input Deck",
+                       tr("Q-Chem Input Deck"),
+                       tr("Q-Chem input deck generator"))
 
   public:
     QChemExtension(QObject* parent = 0);
     virtual ~QChemExtension();
-
-    virtual QString name() const { return QObject::tr("Q-Chem Input Deck"); }
-    virtual QString description() const
-    {
-      return QObject::tr("Q-Chem input deck generator");
-    }
 
     virtual QList<QAction *> actions() const;
 
@@ -67,11 +63,7 @@ namespace Avogadro
   {
     Q_OBJECT
     Q_INTERFACES(Avogadro::PluginFactory)
-    AVOGADRO_EXTENSION_FACTORY(QChemExtension,
-        tr("Q-Chem Extension"),
-        tr("Extension for creating input files for the Q-Chem"
-          " quantum chemistry package."))
- 
+    AVOGADRO_EXTENSION_FACTORY(QChemExtension)
   };
 
 } // End namespace Avogadro

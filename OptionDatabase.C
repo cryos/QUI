@@ -1,9 +1,9 @@
-/*!  
+/*!
  *  \file OptionDatabase.C
- *   
+ *
  *  \brief Non-inline member functions of the OptionDatabase class, see
  *  OptionDatabase.h for details.
- *   
+ *
  *  \author Andrew Gilbert
  *  \date August 2008
  */
@@ -23,7 +23,7 @@
 #include "OptionDatabase.h"
 #include "Option.h"
 
-
+#include <cstdlib>
 #include <iostream>  // tmp
 
 
@@ -69,14 +69,14 @@ OptionDatabase::OptionDatabase() {
 
 #ifdef Q_WS_MAC
    dbFilename += "/../Resources/qchem_option.db";
-#else 
+#else
    dbFilename += "/qchem_option.db";
 #endif
 
 
    qDebug() << "Database file set to:" << dbFilename;
    db.setDatabaseName(dbFilename);
-   
+
    if (db.open()) {
       qDebug() << "Database file opened okay";
       QStringList tables = db.tables();
@@ -124,7 +124,7 @@ QStringList OptionDatabase::all() {
          options.append(query.value(0).toString());
       }
    }
-   
+
    return options;
 }
 
@@ -162,7 +162,7 @@ bool OptionDatabase::insert(Option const& opt, bool const promptOnOverwrite) {
          QString msg("Option name ");
          msg += name;
          msg += " already exists in database, overwrite?";
-         int ret = QMessageBox::question(0, "Option Exists",msg, 
+         int ret = QMessageBox::question(0, "Option Exists",msg,
             QMessageBox::Ok | QMessageBox::Cancel);
          if (ret == QMessageBox::Cancel) {
             return false;
@@ -185,7 +185,7 @@ bool OptionDatabase::insert(Option const& opt, bool const promptOnOverwrite) {
    buf += QString::number(opt.getImplementation()) + ");";
 
    std::cout << "Database insert: " << buf.toStdString() << std::endl;
-   
+
    return execute(buf);
 }
 
@@ -194,13 +194,13 @@ bool OptionDatabase::insert(Option const& opt, bool const promptOnOverwrite) {
 //! Deletes the named Option record from the OptionDatabase.  The user is
 //! prompted if \var prompt is set to true.
 bool OptionDatabase::remove(QString const& optionName, bool const prompt) {
-  
+
    if (prompt) {
       QString msg("Permanently delete the ");
       msg += optionName;
       msg += " record from the option database?";
 
-      int ret = QMessageBox::question(0, "Delete Option?",msg, 
+      int ret = QMessageBox::question(0, "Delete Option?",msg,
          QMessageBox::Ok | QMessageBox::Cancel);
       if (ret == QMessageBox::Cancel) {
          return false;
@@ -220,7 +220,7 @@ bool OptionDatabase::remove(QString const& optionName, bool const prompt) {
 //! Searches the OptionDatabase for \var optionName and, if found, returns the
 //! Option record in \var option.  Returns true if found.
 bool OptionDatabase::get(QString const& optionName, Option& option) {
-  
+
    bool found(false);
    bool okay(false);
 
@@ -264,7 +264,7 @@ bool OptionDatabase::get(QString const& optionName, Option& option) {
       }
       while (query.next()) {}
    }
-   
+
    return found;
 }
 

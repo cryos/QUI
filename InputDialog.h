@@ -1,17 +1,19 @@
-#ifndef QUI_INPUTDIALOG_H 
-#define QUI_INPUTDIALOG_H 
+#ifndef QUI_INPUTDIALOG_H
+#define QUI_INPUTDIALOG_H
 /*!
- *  \class InputDialog 
- *  
+ *  \class InputDialog
+ *
  *  \brief This is the main dialog for setting input options for QChem.
- *  
+ *
  *  \author Andrew Gilbert
  *  \date   August 2008
  */
 
-
-//#include "ui_InputDialog.h"
-#include "ui_QuiMainWindow.h"
+#ifdef AVOGADRO
+  #include "ui_InputDialog.h"
+#else
+  #include "ui_QuiMainWindow.h"
+#endif
 
 #include "OptionRegister.h"
 #include <QFileInfo>
@@ -48,7 +50,12 @@ template<class K, class T> class Register;
 typedef std::map<String,String> StringMap;
 typedef boost::function<void(String const&)> Update;
 
-class InputDialog : public QMainWindow {
+#ifdef AVOGADRO
+class InputDialog : public QDialog
+#else
+class InputDialog : public QMainWindow
+#endif
+{
 
    Q_OBJECT
 
@@ -56,6 +63,9 @@ class InputDialog : public QMainWindow {
       InputDialog(QWidget* parent = 0);
       ~InputDialog();
 
+ #ifdef AVOGADRO
+      void setMolecule(Avogadro::Molecule* molecule);
+#endif
 
    private Q_SLOTS:
 	  // Automatic slots, these are connected by the moc based on the function
@@ -77,8 +87,7 @@ class InputDialog : public QMainWindow {
       void on_buildButton_clicked(bool) { build(); }
       void on_submitButton_clicked(bool) { submitJob(); }
       void on_addJobButton_clicked(bool) { appendNewJob(); }
-      void on_deleteJobButton_clicked(bool); 
-
+      void on_deleteJobButton_clicked(bool);
 
       // Radio toggles for switching pages on stacked widgets
       void toggleStack(QStackedWidget* stack, bool on, QString model);
@@ -90,7 +99,6 @@ class InputDialog : public QMainWindow {
       void on_smx_solvation_toggled(bool on);
       void on_svp_toggled(bool);
       void on_chemsol_toggled(bool);
-  
 
       // Manual slots
       void widgetChanged(QObject* orig, QString const& value);
@@ -147,11 +155,11 @@ class InputDialog : public QMainWindow {
       // ---------- Data ----------
 #ifdef AVOGADRO
       Avogadro::Molecule* m_molecule;
+      Ui::InputDialog m_ui;
 #else
       void* m_molecule;
-#endif
       Ui::MainWindow m_ui;
-
+#endif
       // m_fileIn holds the name of the current input file.
       QFileInfo m_fileIn;
 
@@ -184,10 +192,6 @@ class InputDialog : public QMainWindow {
       Process::Queue* m_processQueue;
 
       // ---------- Functions ----------
- #ifdef AVOGADRO
-      void setMolecule(Avogadro::Molecule* molecule);
-#endif
-
       int  currentJobNumber();
       bool firstJob(Job*);
       void capturePreviewText();
@@ -199,7 +203,7 @@ class InputDialog : public QMainWindow {
       void finalizeJob();
       void setControls(Job* job);
       void resetControls();
-      void initializeMenus();
+//      void initializeMenus();
       void initializeControls();
       void initializeControl(Option const& opt, QComboBox* combo);
       void initializeControl(Option const& opt, QCheckBox* check);

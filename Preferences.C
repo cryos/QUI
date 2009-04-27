@@ -188,3 +188,6 @@ void Set(QString const& name, QVariant const& value) {
 
 
 } } // end namespace Qui::Preferences
+
+#include "Preferences.moc"
+
