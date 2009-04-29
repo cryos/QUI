@@ -528,6 +528,7 @@ void InputDialog::capturePreviewText() {
 
 
 void InputDialog::updatePreviewText() {
+   qDebug() << "updatePreviewText called";
    bool preview(true);
    QStringList jobStrings(generateInputDeckJobs(preview));
 
@@ -543,6 +544,7 @@ void InputDialog::updatePreviewText() {
    QString buffer;
 
    int pos(0), nJobs(m_jobs.size());
+   qDebug() << "Jobs defined:" << m_jobs.size();
    m_ui.previewText->setTextColor("darkgrey");
    QString jobSeparator("\n@@@\n");
 
@@ -593,9 +595,12 @@ QStringList InputDialog::generateInputDeckJobs(bool preview) {
    capturePreviewText();
 #ifdef AVOGADRO
    if (m_currentJob) {
-/// FIXME - this function is currently missing
-//      m_currentJob->setSection("molecule",
-//         ExtractGeometry(m_molecule, m_currentJob->getOption("QUI_COORDINATES")));
+/// FIXME - should setSection be replaced with addSection?
+      int Q = m_currentJob->getOption("QUI_CHARGE").toInt();
+      int M = m_currentJob->getOption("QUI_MULTIPLICITY").toInt();
+      m_currentJob->addSection("molecule",
+         QString::number(Q) + " " + QString::number(M) + "\n" +
+         ExtractGeometry(m_molecule, m_currentJob->getOption("QUI_COORDINATES")));
    }
 #endif
    for (unsigned int i = 0; i < m_jobs.size(); ++i) {
@@ -659,11 +664,6 @@ void InputDialog::updateLJParameters() {
       m_currentJob->addSection(lj);
    }
 }
-
-void InputDialog::appendNewJob()
-{}
-void InputDialog::appendJob(Job*)
-{}
 
 } // end namespace Qui
 

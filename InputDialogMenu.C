@@ -24,6 +24,7 @@
 
 namespace Qui {
 
+#ifndef AVOGADRO
 void InputDialog::initializeMenus() {
    QMenuBar* menubar(menuBar());
    QAction* action;
@@ -184,7 +185,7 @@ void InputDialog::initializeMenus() {
    connect(action, SIGNAL(triggered()), this, SLOT(menuSmaller()));
    action->setShortcut(Qt::CTRL + Qt::Key_Minus);
 }
-
+#endif
 
 
 /********** File *********/

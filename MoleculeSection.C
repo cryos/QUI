@@ -27,6 +27,7 @@ void MoleculeSection::read(QString const& input) {
 
    if (lines.count() > 0) {
       QStringList tokens(lines[0].split(QRegExp("\\s+"), QString::SkipEmptyParts));
+      qDebug() << "Error:" << tokens.count() << lines[0];
       lines.removeFirst();
 
       if (tokens.count() == 1) {
@@ -34,7 +35,8 @@ void MoleculeSection::read(QString const& input) {
             setCoordinates("read");
             okay = true;
          }
-      }else if (tokens.count() == 2) {
+      }
+      else if (tokens.count() == 2) {
          // line 1 is charge + multiplicity
          // everything else is the molecule
          bool c,m;
@@ -43,7 +45,6 @@ void MoleculeSection::read(QString const& input) {
          okay = c && m;
          setCoordinates(lines.join("\n"));
       }
-      
    }
 
    // TODO: This should really load a molecule object so that the coordinate

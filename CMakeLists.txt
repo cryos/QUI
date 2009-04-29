@@ -48,6 +48,7 @@ set(qchemextension_SRCS
     InputDialogAvogadro.C
     InputDialogLogic.C
     InputDialogSlots.C
+    InputDialogMenu.C
     Job.C
     Option.C             
     Process.C
