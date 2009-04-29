@@ -528,7 +528,6 @@ void InputDialog::capturePreviewText() {
 
 
 void InputDialog::updatePreviewText() {
-   qDebug() << "updatePreviewText called";
    bool preview(true);
    QStringList jobStrings(generateInputDeckJobs(preview));
 
@@ -544,7 +543,6 @@ void InputDialog::updatePreviewText() {
    QString buffer;
 
    int pos(0), nJobs(m_jobs.size());
-   qDebug() << "Jobs defined:" << m_jobs.size();
    m_ui.previewText->setTextColor("darkgrey");
    QString jobSeparator("\n@@@\n");
 
@@ -599,7 +597,7 @@ QStringList InputDialog::generateInputDeckJobs(bool preview) {
       int Q = m_currentJob->getOption("QUI_CHARGE").toInt();
       int M = m_currentJob->getOption("QUI_MULTIPLICITY").toInt();
       m_currentJob->addSection("molecule",
-         QString::number(Q) + " " + QString::number(M) + "\n" +
+         QString::number(Q) + " " + QString::number(M) + "\n  " +
          ExtractGeometry(m_molecule, m_currentJob->getOption("QUI_COORDINATES")));
    }
 #endif

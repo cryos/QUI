@@ -34,11 +34,11 @@ void InputDialog::setMolecule(Avogadro::Molecule* molecule) {
    if (molecule) {
       m_molecule = molecule;
       // Update the preview text whenever primitives are changed
-      connect(m_molecule, SIGNAL(primitiveRemoved(Primitive *)),
+      connect(m_molecule, SIGNAL(atomRemoved(Atom *)),
            this, SLOT(updatePreviewText()));
-      connect(m_molecule, SIGNAL(primitiveAdded(Primitive *)),
+      connect(m_molecule, SIGNAL(atomAdded(Atom *)),
            this, SLOT(updatePreviewText()));
-      connect(m_molecule, SIGNAL(primitiveUpdated(Primitive *)),
+      connect(m_molecule, SIGNAL(atomUpdated(Atom *)),
            this, SLOT(updatePreviewText()));
       updatePreviewText();
    }
