@@ -37,7 +37,7 @@ namespace Avogadro {
       : Extension(parent), m_qchemInputDialog(0), m_molecule(0) {
 
       QAction* action = new QAction(this);
-      action->setText(tr("Q-Chem Input"));
+      action->setText(tr("Q-Chem Input (QUI)"));
       action->setData("QChem");
       m_actions.append(action);
    }
@@ -55,7 +55,7 @@ namespace Avogadro {
 
 
    QString QChemExtension::menuPath(QAction*) const {
-      return tr("&Extensions");
+      return tr("E&xtensions");
    }
 
 
@@ -63,7 +63,7 @@ namespace Avogadro {
       if (action->data() == "QChem") {
          if (!m_qchemInputDialog) {
 qDebug() << "Creating QChemInputDialog";
-            m_qchemInputDialog = new Qui::InputDialog();
+            m_qchemInputDialog = new Qui::InputDialog(qobject_cast<QWidget*>(parent()));
 qDebug() << "Creating QChemInputDialog" << m_qchemInputDialog;
             m_qchemInputDialog->setMolecule(m_molecule);
 qDebug() << "+=+ Setting molecule to" << m_molecule;
